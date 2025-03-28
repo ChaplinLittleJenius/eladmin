@@ -19,14 +19,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseDTO;
+
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @Getter
 @Setter
 public class DeptDto extends BaseDTO implements Serializable {

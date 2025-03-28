@@ -30,6 +30,7 @@ public @interface Query {
 
     // Dong ZhaoYang 2017/8/7 基本对象的属性名
     String propName() default "";
+
     // Dong ZhaoYang 2017/8/7 查询方式
     Type type() default Type.EQUAL;
 
@@ -68,13 +69,13 @@ public @interface Query {
         // 不包含
         , NOT_IN
         // 不等于
-        ,NOT_EQUAL
+        , NOT_EQUAL
         // between
-        ,BETWEEN
+        , BETWEEN
         // 不为空
-        ,NOT_NULL
+        , NOT_NULL
         // 为空
-        ,IS_NULL,
+        , IS_NULL,
         // Aborn Jiang 2022/06/01, 对应SQL: SELECT * FROM table WHERE FIND_IN_SET('querytag', table.tags);
         FIND_IN_SET
     }
@@ -84,7 +85,9 @@ public @interface Query {
      * 适用于简单连接查询，复杂的请自定义该注解，或者使用sql查询
      */
     enum Join {
-        /** jie 2019-6-4 13:18:30 */
+        /**
+         * jie 2019-6-4 13:18:30
+         */
         LEFT, RIGHT, INNER
     }
 

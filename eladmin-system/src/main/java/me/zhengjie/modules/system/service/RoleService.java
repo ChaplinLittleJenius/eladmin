@@ -23,6 +23,7 @@ import me.zhengjie.modules.system.service.dto.RoleSmallDto;
 import me.zhengjie.modules.system.service.dto.UserDto;
 import me.zhengjie.utils.PageResult;
 import org.springframework.data.domain.Pageable;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
@@ -36,12 +37,14 @@ public interface RoleService {
 
     /**
      * 查询全部数据
+     *
      * @return /
      */
     List<RoleDto> queryAll();
 
     /**
      * 根据ID查询
+     *
      * @param id /
      * @return /
      */
@@ -49,24 +52,28 @@ public interface RoleService {
 
     /**
      * 创建
+     *
      * @param resources /
      */
     void create(Role resources);
 
     /**
      * 编辑
+     *
      * @param resources /
      */
     void update(Role resources);
 
     /**
      * 删除
+     *
      * @param ids /
      */
     void delete(Set<Long> ids);
 
     /**
      * 根据用户ID查询
+     *
      * @param userId 用户ID
      * @return /
      */
@@ -74,6 +81,7 @@ public interface RoleService {
 
     /**
      * 根据角色查询角色级别
+     *
      * @param roles /
      * @return /
      */
@@ -81,19 +89,22 @@ public interface RoleService {
 
     /**
      * 修改绑定的菜单
+     *
      * @param resources /
-     * @param roleDTO /
+     * @param roleDTO   /
      */
     void updateMenu(Role resources, RoleDto roleDTO);
 
     /**
      * 解绑菜单
+     *
      * @param id /
      */
     void untiedMenu(Long id);
 
     /**
      * 待条件分页查询
+     *
      * @param criteria 条件
      * @param pageable 分页参数
      * @return /
@@ -102,6 +113,7 @@ public interface RoleService {
 
     /**
      * 查询全部
+     *
      * @param criteria 条件
      * @return /
      */
@@ -109,6 +121,7 @@ public interface RoleService {
 
     /**
      * 导出数据
+     *
      * @param queryAll 待导出的数据
      * @param response /
      * @throws IOException /
@@ -117,6 +130,7 @@ public interface RoleService {
 
     /**
      * 获取用户权限信息
+     *
      * @param user 用户信息
      * @return 权限信息
      */
@@ -124,12 +138,14 @@ public interface RoleService {
 
     /**
      * 验证是否被用户关联
+     *
      * @param ids /
      */
     void verification(Set<Long> ids);
 
     /**
      * 根据菜单Id查询
+     *
      * @param menuIds /
      * @return /
      */

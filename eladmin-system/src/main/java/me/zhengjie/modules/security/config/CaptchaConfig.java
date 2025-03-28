@@ -29,6 +29,7 @@ import java.awt.*;
 
 /**
  * 登录验证码配置信息
+ *
  * @author liaojinlong
  * @date 2025-01-13
  */
@@ -75,6 +76,7 @@ public class CaptchaConfig {
 
     /**
      * 依据配置信息生产验证码
+     *
      * @return /
      */
     public Captcha getCaptcha() {
@@ -105,7 +107,7 @@ public class CaptchaConfig {
             default:
                 throw new BadRequestException("验证码配置信息错误！正确配置查看 LoginCodeEnum ");
         }
-        if(StringUtils.isNotBlank(fontName)){
+        if (StringUtils.isNotBlank(fontName)) {
             captcha.setFont(new Font(fontName, Font.PLAIN, fontSize));
         }
         return captcha;

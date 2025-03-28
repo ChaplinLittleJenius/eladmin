@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * 创建自定义的线程池
+ *
  * @author Zheng Jie
  * @description
  * @date 2023-06-08
@@ -65,6 +66,7 @@ public class AsyncExecutor implements AsyncConfigurer {
 
     /**
      * 自定义线程池，用法 @Async
+     *
      * @return Executor
      */
     @Override
@@ -80,6 +82,7 @@ public class AsyncExecutor implements AsyncConfigurer {
     /**
      * 自定义线程池，用法，注入到类中使用
      * private ThreadPoolTaskExecutor taskExecutor;
+     *
      * @return ThreadPoolTaskExecutor
      */
     @Bean("taskAsync")

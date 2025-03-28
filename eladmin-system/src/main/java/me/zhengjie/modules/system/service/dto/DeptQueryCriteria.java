@@ -19,16 +19,17 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import me.zhengjie.annotation.DataPermission;
 import me.zhengjie.annotation.Query;
+
 import java.sql.Timestamp;
 import java.util.List;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @Data
 @DataPermission(fieldName = "id")
-public class DeptQueryCriteria{
+public class DeptQueryCriteria {
 
     @ApiModelProperty(value = "名称")
     @Query(type = Query.Type.INNER_LIKE)

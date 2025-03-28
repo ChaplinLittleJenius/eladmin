@@ -21,6 +21,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.sql.Timestamp;
@@ -72,7 +73,9 @@ public class SysLog implements Serializable {
     @ApiModelProperty(value = "异常详细")
     private byte[] exceptionDetail;
 
-    /** 创建日期 */
+    /**
+     * 创建日期
+     */
     @CreationTimestamp
     @ApiModelProperty(value = "创建日期：yyyy-MM-dd HH:mm:ss")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")

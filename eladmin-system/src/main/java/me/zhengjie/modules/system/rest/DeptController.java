@@ -32,22 +32,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletResponse;
 import java.util.*;
 import java.util.stream.Collectors;
 
 /**
-* @author Zheng Jie
-* @date 2019-03-25
-*/
+ * @author Zheng Jie
+ * @date 2019-03-25
+ */
 @RestController
 @RequiredArgsConstructor
 @Api(tags = "系统：部门管理")
 @RequestMapping("/api/dept")
 public class DeptController {
 
-    private final DeptService deptService;
     private static final String ENTITY_NAME = "dept";
+    private final DeptService deptService;
 
     @ApiOperation("导出部门数据")
     @GetMapping(value = "/download")
@@ -61,7 +62,7 @@ public class DeptController {
     @PreAuthorize("@el.check('user:list','dept:list')")
     public ResponseEntity<PageResult<DeptDto>> queryDept(DeptQueryCriteria criteria) throws Exception {
         List<DeptDto> depts = deptService.queryAll(criteria, true);
-        return new ResponseEntity<>(PageUtil.toPage(depts, depts.size()),HttpStatus.OK);
+        return new ResponseEntity<>(PageUtil.toPage(depts, depts.size()), HttpStatus.OK);
     }
 
     @ApiOperation("查询部门:根据ID获取同级与上级数据")
@@ -69,13 +70,13 @@ public class DeptController {
     @PreAuthorize("@el.check('user:list','dept:list')")
     public ResponseEntity<Object> getDeptSuperior(@RequestBody List<Long> ids,
                                                   @RequestParam(defaultValue = "false") Boolean exclude) {
-        Set<DeptDto> deptSet  = new LinkedHashSet<>();
+        Set<DeptDto> deptSet = new LinkedHashSet<>();
         for (Long id : ids) {
             DeptDto deptDto = deptService.findById(id);
             List<DeptDto> depts = deptService.getSuperior(deptDto, new ArrayList<>());
-            if(exclude){
+            if (exclude) {
                 for (DeptDto dept : depts) {
-                    if(dept.getId().equals(deptDto.getPid())) {
+                    if (dept.getId().equals(deptDto.getPid())) {
                         dept.setSubCount(dept.getSubCount() - 1);
                     }
                 }
@@ -84,16 +85,16 @@ public class DeptController {
             }
             deptSet.addAll(depts);
         }
-        return new ResponseEntity<>(deptService.buildTree(new ArrayList<>(deptSet)),HttpStatus.OK);
+        return new ResponseEntity<>(deptService.buildTree(new ArrayList<>(deptSet)), HttpStatus.OK);
     }
 
     @Log("新增部门")
     @ApiOperation("新增部门")
     @PostMapping
     @PreAuthorize("@el.check('dept:add')")
-    public ResponseEntity<Object> createDept(@Validated @RequestBody Dept resources){
+    public ResponseEntity<Object> createDept(@Validated @RequestBody Dept resources) {
         if (resources.getId() != null) {
-            throw new BadRequestException("A new "+ ENTITY_NAME +" cannot already have an ID");
+            throw new BadRequestException("A new " + ENTITY_NAME + " cannot already have an ID");
         }
         deptService.create(resources);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -103,7 +104,7 @@ public class DeptController {
     @ApiOperation("修改部门")
     @PutMapping
     @PreAuthorize("@el.check('dept:edit')")
-    public ResponseEntity<Object> updateDept(@Validated(Dept.Update.class) @RequestBody Dept resources){
+    public ResponseEntity<Object> updateDept(@Validated(Dept.Update.class) @RequestBody Dept resources) {
         deptService.update(resources);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
@@ -112,12 +113,12 @@ public class DeptController {
     @ApiOperation("删除部门")
     @DeleteMapping
     @PreAuthorize("@el.check('dept:del')")
-    public ResponseEntity<Object> deleteDept(@RequestBody Set<Long> ids){
+    public ResponseEntity<Object> deleteDept(@RequestBody Set<Long> ids) {
         Set<DeptDto> deptDtos = new HashSet<>();
         for (Long id : ids) {
             List<Dept> deptList = deptService.findByPid(id);
             deptDtos.add(deptService.findById(id));
-            if(CollectionUtil.isNotEmpty(deptList)){
+            if (CollectionUtil.isNotEmpty(deptList)) {
                 deptDtos = deptService.getDeleteDepts(deptList, deptDtos);
             }
         }

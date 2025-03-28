@@ -21,7 +21,7 @@ import java.io.IOException;
  * @date 2025-01-11
  **/
 @Configuration
-@SuppressWarnings({"unchecked","all"})
+@SuppressWarnings({"unchecked", "all"})
 @ConditionalOnWebApplication
 @AutoConfigureAfter(DruidDataSourceAutoConfigure.class)
 @ConditionalOnProperty(name = "spring.datasource.druid.stat-view-servlet.enabled",
@@ -31,6 +31,7 @@ public class RemoveDruidAdConfig {
     /**
      * 方法名: removeDruidAdFilterRegistrationBean
      * 方法描述 除去页面底部的广告
+     *
      * @param properties com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties
      * @return org.springframework.boot.web.servlet.FilterRegistrationBean
      */
@@ -48,7 +49,8 @@ public class RemoveDruidAdConfig {
         //创建filter进行过滤
         Filter filter = new Filter() {
             @Override
-            public void init(FilterConfig filterConfig) throws ServletException {}
+            public void init(FilterConfig filterConfig) throws ServletException {
+            }
 
             @Override
             public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -67,8 +69,10 @@ public class RemoveDruidAdConfig {
                     chain.doFilter(request, response);
                 }
             }
+
             @Override
-            public void destroy() {}
+            public void destroy() {
+            }
         };
         FilterRegistrationBean registrationBean = new FilterRegistrationBean();
         registrationBean.setFilter(filter);

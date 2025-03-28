@@ -36,6 +36,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -51,11 +52,11 @@ import java.util.*;
 @RequiredArgsConstructor
 public class SysLogServiceImpl implements SysLogService {
 
+    // 定义敏感字段常量数组
+    private static final String[] SENSITIVE_KEYS = {"password"};
     private final LogRepository logRepository;
     private final LogErrorMapper logErrorMapper;
     private final LogSmallMapper logSmallMapper;
-    // 定义敏感字段常量数组
-    private static final String[] SENSITIVE_KEYS = {"password"};
 
     @Override
     public Object queryAll(SysLogQueryCriteria criteria, Pageable pageable) {
@@ -106,7 +107,7 @@ public class SysLogServiceImpl implements SysLogService {
         sysLog.setDescription(aopLog.value());
 
         // 如果没有获取到用户名，尝试从参数中获取
-        if(StringUtils.isBlank(sysLog.getUsername())){
+        if (StringUtils.isBlank(sysLog.getUsername())) {
             sysLog.setUsername(params.getString("username"));
         }
 

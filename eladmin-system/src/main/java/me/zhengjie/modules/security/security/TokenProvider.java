@@ -30,9 +30,13 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
+
 import javax.servlet.http.HttpServletRequest;
 import java.security.Key;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -42,12 +46,12 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class TokenProvider implements InitializingBean {
 
-    private JwtParser jwtParser;
-    private JwtBuilder jwtBuilder;
-    private final RedisUtils redisUtils;
-    private final SecurityProperties properties;
     public static final String AUTHORITIES_UUID_KEY = "uid";
     public static final String AUTHORITIES_UID_KEY = "userId";
+    private final RedisUtils redisUtils;
+    private final SecurityProperties properties;
+    private JwtParser jwtParser;
+    private JwtBuilder jwtBuilder;
 
     public TokenProvider(SecurityProperties properties, RedisUtils redisUtils) {
         this.properties = properties;
@@ -130,6 +134,7 @@ public class TokenProvider implements InitializingBean {
 
     /**
      * 获取登录用户RedisKey
+     *
      * @param token /
      * @return key
      */
@@ -140,6 +145,7 @@ public class TokenProvider implements InitializingBean {
 
     /**
      * 获取登录用户TokenKey
+     *
      * @param token /
      * @return /
      */

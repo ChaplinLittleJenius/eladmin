@@ -18,7 +18,6 @@ package me.zhengjie.modules.security.security;
 import lombok.RequiredArgsConstructor;
 import me.zhengjie.modules.security.config.SecurityProperties;
 import me.zhengjie.modules.security.service.OnlineUserService;
-import me.zhengjie.modules.security.service.UserCacheManager;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.DefaultSecurityFilterChain;

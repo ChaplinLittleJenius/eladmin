@@ -15,23 +15,27 @@
  */
 package me.zhengjie.modules.maint.domain;
 
-import io.swagger.annotations.ApiModelProperty;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.copier.CopyOptions;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 import me.zhengjie.base.BaseEntity;
-import javax.persistence.*;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 /**
-* @author zhanghouying
-* @date 2019-08-24
-*/
+ * @author zhanghouying
+ * @date 2019-08-24
+ */
 @Entity
 @Getter
 @Setter
-@Table(name="mnt_database")
+@Table(name = "mnt_database")
 public class Database extends BaseEntity implements Serializable {
 
     @Id
@@ -51,7 +55,7 @@ public class Database extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "用户名")
     private String userName;
 
-    public void copy(Database source){
-        BeanUtil.copyProperties(source,this, CopyOptions.create().setIgnoreNullValue(true));
+    public void copy(Database source) {
+        BeanUtil.copyProperties(source, this, CopyOptions.create().setIgnoreNullValue(true));
     }
 }

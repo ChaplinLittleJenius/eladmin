@@ -20,9 +20,9 @@ import lombok.Data;
 import me.zhengjie.annotation.Query;
 
 /**
-* @author Zheng Jie
-* @date 2019-04-10
-*/
+ * @author Zheng Jie
+ * @date 2019-04-10
+ */
 @Data
 public class DictDetailQueryCriteria {
 
@@ -31,6 +31,6 @@ public class DictDetailQueryCriteria {
     private String label;
 
     @ApiModelProperty(value = "字典名称")
-    @Query(propName = "name",joinName = "dict")
+    @Query(propName = "name", joinName = "dict")
     private String dictName;
 }

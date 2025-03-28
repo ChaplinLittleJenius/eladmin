@@ -17,27 +17,27 @@ package me.zhengjie.modules.system.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.utils.PageResult;
 import me.zhengjie.modules.system.domain.Dict;
 import me.zhengjie.modules.system.domain.DictDetail;
-import me.zhengjie.modules.system.repository.DictRepository;
-import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
-import me.zhengjie.utils.*;
 import me.zhengjie.modules.system.repository.DictDetailRepository;
+import me.zhengjie.modules.system.repository.DictRepository;
 import me.zhengjie.modules.system.service.DictDetailService;
 import me.zhengjie.modules.system.service.dto.DictDetailDto;
+import me.zhengjie.modules.system.service.dto.DictDetailQueryCriteria;
 import me.zhengjie.modules.system.service.mapstruct.DictDetailMapper;
+import me.zhengjie.utils.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
-* @author Zheng Jie
-* @date 2019-04-10
-*/
+ * @author Zheng Jie
+ * @date 2019-04-10
+ */
 @Service
 @RequiredArgsConstructor
 public class DictDetailServiceImpl implements DictDetailService {
@@ -49,7 +49,7 @@ public class DictDetailServiceImpl implements DictDetailService {
 
     @Override
     public PageResult<DictDetailDto> queryAll(DictDetailQueryCriteria criteria, Pageable pageable) {
-        Page<DictDetail> page = dictDetailRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root,criteria,criteriaBuilder),pageable);
+        Page<DictDetail> page = dictDetailRepository.findAll((root, criteriaQuery, criteriaBuilder) -> QueryHelp.getPredicate(root, criteria, criteriaBuilder), pageable);
         return PageUtil.toPage(page.map(dictDetailMapper::toDto));
     }
 
@@ -65,7 +65,7 @@ public class DictDetailServiceImpl implements DictDetailService {
     @Transactional(rollbackFor = Exception.class)
     public void update(DictDetail resources) {
         DictDetail dictDetail = dictDetailRepository.findById(resources.getId()).orElseGet(DictDetail::new);
-        ValidationUtil.isNull( dictDetail.getId(),"DictDetail","id",resources.getId());
+        ValidationUtil.isNull(dictDetail.getId(), "DictDetail", "id", resources.getId());
         resources.setId(dictDetail.getId());
         dictDetailRepository.save(resources);
         // 清理缓存
@@ -76,9 +76,9 @@ public class DictDetailServiceImpl implements DictDetailService {
     public List<DictDetailDto> getDictByName(String name) {
         String key = CacheKey.DICT_NAME + name;
         List<DictDetail> dictDetails = redisUtils.getList(key, DictDetail.class);
-        if(CollUtil.isEmpty(dictDetails)){
+        if (CollUtil.isEmpty(dictDetails)) {
             dictDetails = dictDetailRepository.findByDictName(name);
-            redisUtils.set(key, dictDetails, 1 , TimeUnit.DAYS);
+            redisUtils.set(key, dictDetails, 1, TimeUnit.DAYS);
         }
         return dictDetailMapper.toDto(dictDetails);
     }
@@ -92,7 +92,7 @@ public class DictDetailServiceImpl implements DictDetailService {
         dictDetailRepository.deleteById(id);
     }
 
-    public void delCaches(DictDetail dictDetail){
+    public void delCaches(DictDetail dictDetail) {
         Dict dict = dictRepository.findById(dictDetail.getDict().getId()).orElseGet(Dict::new);
         redisUtils.del(CacheKey.DICT_NAME + dict.getName());
     }

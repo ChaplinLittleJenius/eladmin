@@ -19,8 +19,8 @@ import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.ZipUtil;
 import lombok.RequiredArgsConstructor;
-import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.ColumnInfo;
+import me.zhengjie.domain.GenConfig;
 import me.zhengjie.domain.vo.TableInfo;
 import me.zhengjie.exception.BadRequestException;
 import me.zhengjie.repository.ColumnInfoRepository;
@@ -31,6 +31,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -50,15 +51,14 @@ import java.util.stream.Collectors;
  */
 @Service
 @RequiredArgsConstructor
-@SuppressWarnings({"unchecked","all"})
+@SuppressWarnings({"unchecked", "all"})
 public class GeneratorServiceImpl implements GeneratorService {
     private static final Logger log = LoggerFactory.getLogger(GeneratorServiceImpl.class);
+    private final ColumnInfoRepository columnInfoRepository;
+    private final String CONFIG_MESSAGE = "请先配置生成器";
     @PersistenceContext
     private EntityManager em;
 
-    private final ColumnInfoRepository columnInfoRepository;
-
-    private final String CONFIG_MESSAGE = "请先配置生成器";
     @Override
     public Object getTables() {
         // 使用预编译防止sql注入
